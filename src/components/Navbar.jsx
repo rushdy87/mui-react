@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import {
   AppBar,
   Avatar,
   Badge,
   Box,
   InputBase,
+  Menu,
+  MenuItem,
   styled,
   Toolbar,
   Typography,
@@ -47,6 +50,15 @@ const UserBox = styled(Box)(({ theme }) => {
 });
 
 const Navbar = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <AppBar position="sticky">
       <StyledToolbar>
@@ -68,6 +80,7 @@ const Navbar = () => {
             alt="Miranda Cohen"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE2EwZGxrzoWWhiDst647sBEXdGOnS2lmynBhD8iherGxYoTEzNlrGUF_uPiJIPYTyPlE&usqp=CAU"
             sx={{ width: 30, height: 30 }}
+            onClick={handleClick}
           />
         </Icons>
         <UserBox>
@@ -75,10 +88,31 @@ const Navbar = () => {
             alt="Miranda Cohen"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE2EwZGxrzoWWhiDst647sBEXdGOnS2lmynBhD8iherGxYoTEzNlrGUF_uPiJIPYTyPlE&usqp=CAU"
             sx={{ width: 30, height: 30 }}
+            onClick={handleClick}
           />
           <Typography variant="subtitle2">Miranda Cohen</Typography>
         </UserBox>
       </StyledToolbar>
+
+      <Menu
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu>
     </AppBar>
   );
 };
